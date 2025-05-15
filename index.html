@@ -8,12 +8,37 @@
             transform: scale(1.1);
             transition: transform 0.2s;
         }
+        .circle {
+            width: 300px;
+            height: 300px;
+            background-color: #f5deb3;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin: 10px;
+        }
+        .key {
+            font-size: 1.5rem;
+            margin: 5px;
+        }
     </style>
 </head>
-<body class="bg-gray-800 text-white flex flex-col items-center justify-center min-h-screen">
+<body class="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen p-4">
     <h1 class="text-3xl font-bold mb-4">Círculo de Quintas - Composición</h1>
-    <p class="mb-4">Selecciona una tonalidad para ver sus acordes asociados:</p>
-    <div class="grid grid-cols-3 gap-4 mb-6">
+    <div class="circle">
+        <div class="key">I: C</div>
+        <div class="key">IV: F</div>
+        <div class="key">V: G</div>
+        <div class="key">vi: Am</div>
+        <div class="key">ii: Dm</div>
+        <div class="key">iii: Em</div>
+        <div class="key">vii°: Bdim</div>
+    </div>
+    <p class="mt-4 text-center">Selecciona una tonalidad para ver sus acordes:</p>
+    <div class="grid grid-cols-3 gap-4 mt-4">
         <button class="circle-btn p-4 bg-blue-600 rounded-full">C</button>
         <button class="circle-btn p-4 bg-green-600 rounded-full">G</button>
         <button class="circle-btn p-4 bg-purple-600 rounded-full">D</button>
@@ -21,7 +46,7 @@
         <button class="circle-btn p-4 bg-red-600 rounded-full">E</button>
         <button class="circle-btn p-4 bg-teal-600 rounded-full">B</button>
     </div>
-    <div id="result" class="text-xl"></div><script>
+    <div id="result" class="text-xl mt-4"></div><script>
     const circleData = {
         'C': ['C', 'F', 'G', 'Am', 'Dm', 'Em', 'Bdim'],
         'G': ['G', 'C', 'D', 'Em', 'Am', 'Bm', 'F#dim'],
