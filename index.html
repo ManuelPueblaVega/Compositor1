@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Círculo de Quintas</title>
+    <title>Círculo de Quintas Interactivo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -25,26 +25,19 @@
             background: radial-gradient(circle, #e4d7c5, #d1b29d);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .needle {
-            width: 4px;
-            height: 45%;
-            background-color: #8b5e3c;
-            position: absolute;
-            top: 5%;
-            left: 50%;
-            transform-origin: bottom center;
-            transition: transform 0.5s ease;
+        .table-container {
+            margin: 20px;
         }
-        .label {
-            position: absolute;
-            font-size: 1.2rem;
-            color: #8b5e3c;
-            transform: translate(-50%, -50%);
+        table {
+            border-collapse: collapse;
+            margin: 10px 0;
         }
-        .control {
-            margin: 10px;
+        th, td {
+            padding: 10px;
+            border: 1px solid #8b5e3c;
+            text-align: center;
             font-size: 1.2rem;
-            color: #8b5e3c;
+            background-color: #e4d7c5;
         }
         select {
             padding: 5px;
@@ -58,44 +51,55 @@
 </head>
 <body>
     <h2 class="text-lg font-bold mb-2">Círculo de Quintas Interactivo</h2>
-    <div class="control">
+    <div>
         <label for="tonalidad">Selecciona la tonalidad: </label>
-        <select id="tonalidad" onchange="updateDial(this.value)">
-            <option value="0">C</option>
-            <option value="30">G</option>
-            <option value="60">D</option>
-            <option value="90">A</option>
-            <option value="120">E</option>
-            <option value="150">B</option>
-            <option value="180">F#</option>
-            <option value="210">Db</option>
-            <option value="240">Ab</option>
-            <option value="270">Eb</option>
-            <option value="300">Bb</option>
-            <option value="330">F</option>
+        <select id="tonalidad" onchange="updateChords(this.value)">
+            <option value="C">C</option>
+            <option value="G">G</option>
+            <option value="D">D</option>
+            <option value="A">A</option>
+            <option value="E">E</option>
+            <option value="B">B</option>
+            <option value="F#">F#</option>
+            <option value="Db">Db</option>
+            <option value="Ab">Ab</option>
+            <option value="Eb">Eb</option>
+            <option value="Bb">Bb</option>
+            <option value="F">F</option>
         </select>
     </div>
-    <div class="circle" id="circle">
-        <div class="needle" id="needle"></div>
-        <div class="label" style="top: 10%; left: 50%;">C</div>
-        <div class="label" style="top: 20%; left: 70%;">G</div>
-        <div class="label" style="top: 40%; left: 85%;">D</div>
-        <div class="label" style="top: 60%; left: 85%;">A</div>
-        <div class="label" style="top: 80%; left: 70%;">E</div>
-        <div class="label" style="top: 90%; left: 50%;">B</div>
-        <div class="label" style="top: 80%; left: 30%;">F#</div>
-        <div class="label" style="top: 60%; left: 15%;">Db</div>
-        <div class="label" style="top: 40%; left: 15%;">Ab</div>
-        <div class="label" style="top: 20%; left: 30%;">Eb</div>
-        <div class="label" style="top: 10%; left: 50%;">Bb</div>
-        <div class="label" style="top: 0%; left: 50%;">F</div>
+    <div class="table-container">
+        <table id="chordsTable">
+            <tr><th>Mayor</th><th>Menor</th><th>Semidisminuido</th></tr>
+            <tr id="majorRow"></tr>
+            <tr id="minorRow"></tr>
+            <tr id="dimRow"></tr>
+        </table>
     </div>
     <script>
-        const needle = document.getElementById("needle");
-        function updateDial(value) {
-            needle.style.transform = `rotate(${value}deg)`;
-        }
-        updateDial(0);
-    </script>
+        const chords = {
+            C: { major: ['C', 'F', 'G'], minor: ['Dm', 'Am', 'Em'], dim: 'Bdim' },
+            G: { major: ['G', 'C', 'D'], minor: ['Am', 'Em', 'Bm'], dim: 'F#dim' },
+            D: { major: ['D', 'G', 'A'], minor: ['Em', 'Bm', 'F#m'], dim: 'C#dim' },
+            A: { major: ['A', 'D', 'E'], minor: ['Bm', 'F#m', 'C#m'], dim: 'G#dim' },
+            E: { major: ['E', 'A', 'B'], minor: ['F#m', 'C#m', 'G#m'], dim: 'D#dim' },
+            B: { major: ['B', 'E', 'F#'], minor: ['C#m', 'G#m', 'D#m'], dim: 'A#dim' },
+            'F#': { major: ['F#', 'B', 'C#'], minor: ['G#m', 'D#m', 'A#m'], dim: 'E#dim' },
+            Db: { major: ['Db', 'Gb', 'Ab'], minor: ['Ebm', 'Bbm', 'Fm'], dim: 'Cdim' },
+            Ab: { major: ['Ab', 'Db', 'Eb'], minor: ['Bbm', 'Fm', 'Cm'], dim: 'Gdim' },
+            Eb: { major: ['Eb', 'Ab', 'Bb'], minor: ['Fm', 'Cm', 'Gm'], dim: 'Ddim' },
+            Bb: { major: ['Bb', 'Eb', 'F'], minor: ['Cm', 'Gm', 'Dm'], dim: 'Adim' },
+            F: { major: ['F', 'Bb', 'C'], minor: ['Gm', 'Dm', 'Am'], dim: 'Edim' }
+        };function updateChords(key) {
+        const majorRow = document.getElementById('majorRow');
+        const minorRow = document.getElementById('minorRow');
+        const dimRow = document.getElementById('dimRow');
+        majorRow.innerHTML = chords[key].major.map(chord => `<td>${chord}</td>`).join('');
+        minorRow.innerHTML = chords[key].minor.map(chord => `<td>${chord}</td>`).join('');
+        dimRow.innerHTML = `<td colspan="3">${chords[key].dim}</td>`;
+    }
+    updateChords('C');
+</script>
+
 </body>
 </html>
