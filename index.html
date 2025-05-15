@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Círculo de Quintas - Composición</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .circle-btn:hover {
+            transform: scale(1.1);
+            transition: transform 0.2s;
+        }
+    </style>
+</head>
+<body class="bg-gray-800 text-white flex flex-col items-center justify-center min-h-screen">
+    <h1 class="text-3xl font-bold mb-4">Círculo de Quintas - Composición</h1>
+    <p class="mb-4">Selecciona una tonalidad para ver sus acordes asociados:</p>
+    <div class="grid grid-cols-3 gap-4 mb-6">
+        <button class="circle-btn p-4 bg-blue-600 rounded-full">C</button>
+        <button class="circle-btn p-4 bg-green-600 rounded-full">G</button>
+        <button class="circle-btn p-4 bg-purple-600 rounded-full">D</button>
+        <button class="circle-btn p-4 bg-yellow-600 rounded-full">A</button>
+        <button class="circle-btn p-4 bg-red-600 rounded-full">E</button>
+        <button class="circle-btn p-4 bg-teal-600 rounded-full">B</button>
+    </div>
+    <div id="result" class="text-xl"></div><script>
+    const circleData = {
+        'C': ['C', 'F', 'G', 'Am', 'Dm', 'Em', 'Bdim'],
+        'G': ['G', 'C', 'D', 'Em', 'Am', 'Bm', 'F#dim'],
+        'D': ['D', 'G', 'A', 'Bm', 'Em', 'F#m', 'C#dim'],
+        'A': ['A', 'D', 'E', 'F#m', 'Bm', 'C#m', 'G#dim'],
+        'E': ['E', 'A', 'B', 'C#m', 'F#m', 'G#m', 'D#dim'],
+        'B': ['B', 'E', 'F#', 'G#m', 'C#m', 'D#m', 'A#dim']
+    };
+
+    const resultDiv = document.getElementById('result');
+
+    document.querySelectorAll('.circle-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const key = btn.textContent;
+            const chords = circleData[key];
+            resultDiv.textContent = `Tonalidad ${key}: I - ${chords[0]}, IV - ${chords[1]}, V - ${chords[2]}, vi - ${chords[3]}, ii - ${chords[4]}, iii - ${chords[5]}, vii° - ${chords[6]}`;
+        });
+    });
+</script>
+
+</body>
+</html>
