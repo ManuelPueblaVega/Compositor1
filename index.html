@@ -10,12 +10,6 @@
             color: #fff;
             font-family: 'Arial', sans-serif;
         }
-        .circle-btn {
-            transition: transform 0.3s ease-in-out;
-        }
-        .circle-btn:hover {
-            transform: scale(1.2);
-        }
         .circle {
             width: 80vw;
             height: 80vw;
@@ -32,29 +26,20 @@
             margin-bottom: 20px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
         }
-        .key {
-            font-size: 1.25rem;
+        .chord-group {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin: 5px 0;
+        }
+        .chord {
+            font-size: 1.5rem;
             font-weight: bold;
-            margin: 5px;
             text-transform: uppercase;
         }
-        .button-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        .circle-btn {
-            background-color: #4a90e2;
-            padding: 12px 24px;
-            border-radius: 50%;
-            border: none;
-            color: white;
+        .key-label {
             font-size: 1.2rem;
-            cursor: pointer;
-        }
-        .circle-btn:focus {
-            outline: none;
+            font-weight: normal;
         }
         .result {
             font-size: 1.25rem;
@@ -66,42 +51,24 @@
 <body class="flex flex-col items-center justify-center min-h-screen p-4">
     <h1 class="text-4xl font-bold mb-6 text-center">Círculo de Quintas - Composición</h1>
     <div class="circle">
-        <p class="key">Selecciona una tonalidad</p>
+        <div class="chord-group">
+            <span class="chord">IV: F</span>
+            <span class="chord">I: C</span>
+            <span class="chord">V: G</span>
+        </div>
+        <div class="chord-group">
+            <span class="key-label">Major</span>
+            <span class="key-label">minor</span>
+        </div>
+        <div class="chord-group">
+            <span class="chord">ii: Dm</span>
+            <span class="chord">vi: Am</span>
+            <span class="chord">iii: Em</span>
+        </div>
+        <div class="chord-group">
+            <span class="chord">vii°: Bdim</span>
+        </div>
     </div>
-    <div class="button-container">
-        <button class="circle-btn" data-key="C">C</button>
-        <button class="circle-btn" data-key="G">G</button>
-        <button class="circle-btn" data-key="D">D</button>
-        <button class="circle-btn" data-key="A">A</button>
-        <button class="circle-btn" data-key="E">E</button>
-        <button class="circle-btn" data-key="B">B</button>
-    </div>
-    <div id="result" class="result"></div><script>
-    const circleData = {
-        'C': ['C', 'F', 'G', 'Am', 'Dm', 'Em', 'Bdim'],
-        'G': ['G', 'C', 'D', 'Em', 'Am', 'Bm', 'F#dim'],
-        'D': ['D', 'G', 'A', 'Bm', 'Em', 'F#m', 'C#dim'],
-        'A': ['A', 'D', 'E', 'F#m', 'Bm', 'C#m', 'G#dim'],
-        'E': ['E', 'A', 'B', 'C#m', 'F#m', 'G#m', 'D#dim'],
-        'B': ['B', 'E', 'F#', 'G#m', 'C#m', 'D#m', 'A#dim']
-    };
-
-    document.querySelectorAll('.circle-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            const key = button.getAttribute('data-key');
-            const chords = circleData[key];
-            const resultText = `<strong>Tonalidad ${key}:</strong><br>
-                                I - ${chords[0]}<br>
-                                IV - ${chords[1]}<br>
-                                V - ${chords[2]}<br>
-                                vi - ${chords[3]}<br>
-                                ii - ${chords[4]}<br>
-                                iii - ${chords[5]}<br>
-                                vii° - ${chords[6]}`;
-            document.getElementById('result').innerHTML = resultText;
-        });
-    });
-</script>
-
+    <div id="result" class="result"></div>
 </body>
 </html>
